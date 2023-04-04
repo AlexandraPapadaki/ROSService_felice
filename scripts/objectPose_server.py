@@ -110,9 +110,6 @@ class createExampleListCls:
                     imagesListed_withoutPathAndFormat = (imagesListed_withoutPath.split('.'))[0]  # cut off format
                     im_ids.append(int(imagesListed_withoutPathAndFormat))
                 im_ids = sorted(im_ids)
-                # print(im_ids)
-                # TODO car
-
                 # im_ids = inout.load_scene_gt(scene_gt_fpath).keys() # TODO car. this is the default for im_ids. Use the above instead to read images directly from the images folder, without needing gt
                 for im_id in sorted(im_ids):
                     example_list.append({'scene_id': scene_id, 'im_id': im_id})
@@ -390,7 +387,7 @@ class eposInfer:
         self.max_fitting_iterations = 400
 
         # Visualization parameters.
-        self.vis = False # TODO - activate/deactivate visualizations
+        self.vis = False # TODO
         self.vis_gt_poses = False
         self.vis_pred_poses = True
         self.vis_gt_obj_labels = False
@@ -412,9 +409,10 @@ class eposInfer:
         self.corr_min_obj_conf = 0.1
         self.corr_min_frag_rel_conf = 0.5
         self.corr_project_to_model = False
-        self.model = "extend"  # TODO
-        if objId == 2:
-            self.model="extendComp" # TODO
+        self.model = "crfAndLab12"
+        #self.model = "extend"  # TODO
+        #if objId == 2:
+        #    self.model="extendComp" # TODO
         self.infer_name = self.dataset + "-" + self.split #'carObj1-test'  # None # TODO
 
         self.frag_cls_agnostic = False
@@ -468,7 +466,7 @@ class eposInfer:
                 self.vis_pred_obj_confs,
                 self.vis_pred_frag_fields])
 
-            # Dataset provider. # TODO dont know to where htis is
+            # Dataset provider. 
             dataset = datagen.Dataset(
                 dataset_name=self.dataset,
                 tfrecord_names=tfrecord_names,
